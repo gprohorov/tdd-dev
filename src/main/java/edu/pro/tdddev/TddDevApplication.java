@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TddDevApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(TddDevApplication.class, args);
+
     }
 
 }
