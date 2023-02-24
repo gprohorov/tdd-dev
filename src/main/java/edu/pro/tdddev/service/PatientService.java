@@ -9,7 +9,6 @@ package edu.pro.tdddev.service;
 
 import edu.pro.tdddev.model.Patient;
 import edu.pro.tdddev.repository.PatientRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

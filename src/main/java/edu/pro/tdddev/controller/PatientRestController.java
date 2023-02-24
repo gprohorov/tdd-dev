@@ -8,6 +8,7 @@ package edu.pro.tdddev.controller;
 */
 
 import edu.pro.tdddev.model.Patient;
+import edu.pro.tdddev.repository.PatientRepository;
 import edu.pro.tdddev.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +20,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/patients")
-public class PatientController {
+public class PatientRestController {
 
     private final PatientService patientService;
 
     @Autowired
-    public PatientController(PatientService patientService) {
+    public PatientRestController(PatientService patientService) {
         this.patientService = patientService;
     }
 
