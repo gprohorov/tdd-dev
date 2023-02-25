@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
@@ -39,6 +40,10 @@ public class PatientService {
 
     public List<Patient> getAll(){
         return patientRepository.findAll();
+    }
+
+    public List<Patient> getAllAfter(LocalDateTime date){
+        return patientRepository.findAllByCreatedAtAfter(date);
     }
 
 }

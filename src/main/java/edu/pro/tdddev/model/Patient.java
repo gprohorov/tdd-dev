@@ -35,6 +35,13 @@ public class Patient {
         this.description = description;
     }
 
+    public Patient(String name, String phoneNumber, String description, LocalDateTime createdAt) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.description = description;
+        this.createdAt = createdAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
