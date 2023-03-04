@@ -8,6 +8,7 @@ package edu.pro.tdddev.service;
 */
 
 import edu.pro.tdddev.model.Patient;
+import edu.pro.tdddev.model.PatientRegistrationRequest;
 import edu.pro.tdddev.repository.PatientRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,14 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
+    public Patient create(PatientRegistrationRequest request) {
+
+        Patient patientToCreate = new Patient(request.name(),
+                request.phoneNumber(),
+                "",
+                LocalDateTime.now());
+        return patientRepository.save(patientToCreate);
+    }
 }
+
+//  CRUD    -  create read update delete

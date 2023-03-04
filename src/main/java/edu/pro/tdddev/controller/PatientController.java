@@ -8,11 +8,11 @@ package edu.pro.tdddev.controller;
 */
 
 import edu.pro.tdddev.model.Patient;
+import edu.pro.tdddev.model.PatientRegistrationRequest;
 import edu.pro.tdddev.service.PatientService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,11 @@ public class PatientController {
     @GetMapping("/hello")
     String sayHello() {
         return "Hello";
+    }
+
+    @PostMapping("/")
+    Patient create(@RequestBody PatientRegistrationRequest request){
+        return patientService.create(request);
     }
 
 
