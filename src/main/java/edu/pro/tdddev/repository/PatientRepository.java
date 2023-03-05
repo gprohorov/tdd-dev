@@ -4,6 +4,9 @@ import edu.pro.tdddev.model.Patient;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /*
   @author   george
   @project   tdd-dev
@@ -13,5 +16,5 @@ import org.springframework.stereotype.Repository;
 */
 @Repository
 public interface PatientRepository extends MongoRepository<Patient, String> {
-    boolean existsPatientByPhoneNumber(String phoneNumber);
+    boolean existsPatientByPhoneNumber(String phone);
 }

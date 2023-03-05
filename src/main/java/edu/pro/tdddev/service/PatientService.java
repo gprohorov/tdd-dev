@@ -44,6 +44,12 @@ public class PatientService {
 
     public Patient create(PatientRegistrationRequest request) {
 
+        String phone = request.phoneNumber();
+
+        if (patientRepository.existsPatientByPhoneNumber(phone)){
+            return null;
+        }
+
         Patient patientToCreate = new Patient(request.name(),
                 request.phoneNumber(),
                 "",
