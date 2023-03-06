@@ -18,16 +18,13 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class Patient {
+public class Patient extends AuditMetadata{
 
     @Id
     private String id;
     private String name;
     private String phoneNumber;
     private String description;
-    private LocalDateTime createdAt;
 
     public Patient(String name, String phoneNumber, String description) {
         this.name = name;
@@ -55,7 +52,6 @@ public class Patient {
                 ", name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", description='" + description + '\'' +
-                ", createdAt=" + createdAt +
                 '}';
     }
 }
