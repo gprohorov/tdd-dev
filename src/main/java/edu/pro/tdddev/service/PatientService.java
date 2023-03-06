@@ -22,9 +22,9 @@ public class PatientService {
     private final PatientRepository patientRepository;
 
     private List<Patient> patients = List.of(
-            new Patient("1", "John", "012", "Beatles"),
-            new Patient("2", "Paul", "345", "Beatles"),
-            new Patient("3", "Freddie", "678", "Queen")
+            new Patient( "John", "012", "Beatles"),
+            new Patient( "Paul", "345", "Beatles"),
+            new Patient( "Freddie", "678", "Queen")
     );
 
     @Autowired
@@ -32,8 +32,9 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
- //   @PostConstruct
+ //  @PostConstruct
     void init(){
+        patientRepository.deleteAll();
         patientRepository.saveAll(patients);
     }
 
