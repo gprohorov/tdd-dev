@@ -76,7 +76,7 @@ class PatientServiceTest {
         // when
         underTest.create(request);
         //then
-        verify(mockRepository, never()).save(any(Patient.class));
+        verify(mockRepository, never()).save(any());
     }
 
 

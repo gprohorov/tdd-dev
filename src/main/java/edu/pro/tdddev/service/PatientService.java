@@ -50,7 +50,8 @@ public class PatientService {
             return null;
         }
 
-        Patient patientToCreate = new Patient(request.name(),
+        Patient patientToCreate = new Patient(
+                request.name(),
                 request.phoneNumber(),
                 "",
                 LocalDateTime.now());
