@@ -32,12 +32,13 @@ public class PatientService {
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
-
- //   @PostConstruct
+/*
+    @PostConstruct
     void init(){
+        patientRepository.deleteAll();
         patientRepository.saveAll(patients);
     }
-
+*/
     public List<Patient> getAll(){
         return patientRepository.findAll();
     }
@@ -47,7 +48,13 @@ public class PatientService {
         String phone = request.phoneNumber();
 
         if (patientRepository.existsPatientByPhoneNumber(phone)){
-            return null;
+            Patient existingOne = patientRepository.findPatientByPhoneNumber(phone).get();
+            if (existingOne.getName().equals(request.name())) {
+                throw new IllegalStateException("The patient is already registrated!");
+            } else {
+                throw  new IllegalStateException(
+                        String.format("The number %s is already taken!",phone));
+            }
         }
 
         Patient patientToCreate = new Patient(
@@ -57,6 +64,23 @@ public class PatientService {
                 LocalDateTime.now());
         return patientRepository.save(patientToCreate);
     }
+
+    boolean delete(String id) {
+        // logic
+        patientRepository.deleteById(id);
+         return true;
+    }
+
+    Patient get(String id) {
+        return  patientRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Not found"));
+    }
+
+    Patient update(Patient patient) {
+        // logic
+        return patientRepository.save(patient);
+    }
+
 }
 
 //  CRUD    -  create read update delete

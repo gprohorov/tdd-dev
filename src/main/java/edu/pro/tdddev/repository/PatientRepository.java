@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /*
   @author   george
@@ -17,4 +18,5 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends MongoRepository<Patient, String> {
     boolean existsPatientByPhoneNumber(String phone);
+    Optional<Patient> findPatientByPhoneNumber(String phone);
 }

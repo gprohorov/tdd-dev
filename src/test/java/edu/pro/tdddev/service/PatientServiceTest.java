@@ -12,8 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -67,18 +69,40 @@ class PatientServiceTest {
         verify(mockRepository, times(1)).save(patientSaved);
     }
     @Test
-    void itShouldNotSavePatientWhenPhoneIsInBase() {
+    void itShouldNotSavePatientWhenPhoneIsInBaseAndExceptionThrow() {
         // given
         String phone = "001";
         LocalDateTime time = LocalDateTime.now();
-        PatientRegistrationRequest request = new PatientRegistrationRequest("Ivan",phone);
+        Patient john = new Patient("1","John",  phone, "", time.minusDays(7));
+        PatientRegistrationRequest request = new PatientRegistrationRequest("Tom",phone);
         given(mockRepository.existsPatientByPhoneNumber(phone)).willReturn(true);
+        given(mockRepository.findPatientByPhoneNumber(phone)).willReturn(Optional.of(john));
         // when
-        underTest.create(request);
+        assertThatThrownBy(() -> underTest.create(request))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("is already taken!");
         //then
         verify(mockRepository, never()).save(any());
     }
 
+
+    @Test
+    void itShouldNotSavePatientWhenPhoneAndNameAreInBaseAndExceptionThrow() {
+        // given
+        String phone = "001";
+        String name = "John";
+        LocalDateTime time = LocalDateTime.now();
+        Patient john = new Patient("1",name, phone,"", time.minusDays(7));
+        PatientRegistrationRequest request = new PatientRegistrationRequest(name,phone);
+        given(mockRepository.existsPatientByPhoneNumber(phone)).willReturn(true);
+        given(mockRepository.findPatientByPhoneNumber(phone)).willReturn(Optional.of(john));
+        // when
+        assertThatThrownBy(() -> underTest.create(request))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("is already registrated!");
+        //then
+        verify(mockRepository, never()).save(any());
+    }
 
 
 
