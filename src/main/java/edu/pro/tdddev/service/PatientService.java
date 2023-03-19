@@ -10,12 +10,12 @@ package edu.pro.tdddev.service;
 import edu.pro.tdddev.model.Patient;
 import edu.pro.tdddev.model.PatientRegistrationRequest;
 import edu.pro.tdddev.repository.PatientRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientService {
@@ -65,21 +65,28 @@ public class PatientService {
         return patientRepository.save(patientToCreate);
     }
 
-    boolean delete(String id) {
+    public boolean delete(String id) {
         // logic
         patientRepository.deleteById(id);
          return true;
     }
 
-    Patient get(String id) {
+    public Patient get(String id) {
         return  patientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
-    Patient update(Patient patient) {
+    public Patient update(Patient patient) {
         // logic
         return patientRepository.save(patient);
     }
+
+        public Optional<Patient> getByPhone(String phone) {
+        // logic
+        return patientRepository.findPatientByPhoneNumber(phone);
+    }
+
+
 
 }
 
