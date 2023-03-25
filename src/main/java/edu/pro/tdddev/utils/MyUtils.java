@@ -14,4 +14,22 @@ public class MyUtils {
     public static String toJson(Object object) throws JsonProcessingException {
         return new ObjectMapper().writeValueAsString(object);
     }
+
+    public static boolean isValidPhoneNumber(String phone){
+
+        phone = phone.replace("(", "")
+                .replace(")", "");
+
+        if(phone.length() < 3) {
+            return false;
+        }
+
+        if(phone.length() > 10) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

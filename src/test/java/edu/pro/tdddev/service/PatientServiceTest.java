@@ -104,6 +104,24 @@ class PatientServiceTest {
         verify(mockRepository, never()).save(any());
     }
 
+    @Test
+    void itShouldNotSavePatientWhenPhoneIsNotValidAndExceptionThrow() {
+        // given
+        String phone = "00";
+        String name = "John";
+        LocalDateTime time = LocalDateTime.now();
+        Patient john = new Patient("1",name, phone,"", time.minusDays(7));
+        PatientRegistrationRequest request = new PatientRegistrationRequest(name,phone);
+        given(mockRepository.existsPatientByPhoneNumber(phone)).willReturn(false);
+        // when
+        assertThatThrownBy(() -> underTest.create(request))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("is not valid");
+        //then
+        then(mockRepository).shouldHaveNoMoreInteractions();
+        verify(mockRepository, never()).save(any());
+    }
+
 
 
 }

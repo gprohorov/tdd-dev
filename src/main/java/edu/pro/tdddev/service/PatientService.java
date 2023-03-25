@@ -10,6 +10,7 @@ package edu.pro.tdddev.service;
 import edu.pro.tdddev.model.Patient;
 import edu.pro.tdddev.model.PatientRegistrationRequest;
 import edu.pro.tdddev.repository.PatientRepository;
+import edu.pro.tdddev.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,11 @@ public class PatientService {
     public Patient create(PatientRegistrationRequest request) {
 
         String phone = request.phoneNumber();
+
+        if (!MyUtils.isValidPhoneNumber(phone)) {
+            throw  new IllegalStateException(
+                    String.format("The number %s is not valid",phone));
+        }
 
         if (patientRepository.existsPatientByPhoneNumber(phone)){
             Patient existingOne = patientRepository.findPatientByPhoneNumber(phone).get();
