@@ -52,5 +52,5 @@ class PatientIntegrationTest {
         assertNotNull(patientService.getByPhone(phone).get().getId());
         assertNotNull(patientService.getByPhone(phone).get().getCreatedAt());
     }
-
+    
 }
